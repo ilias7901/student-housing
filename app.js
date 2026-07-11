@@ -8,14 +8,14 @@
 const properties = [];
 
 const cities = [
-  { name: "Casablanca",  listings: 0, gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)", emoji: "🏙️" },
-  { name: "Rabat",       listings: 0, gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)", emoji: "🏛️" },
-  { name: "Marrakech",   listings: 0, gradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)", emoji: "🕌" },
-  { name: "Fes",         listings: 0, gradient: "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)", emoji: "📖" },
-  { name: "Tangier",     listings: 0, gradient: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)", emoji: "🌊" },
-  { name: "Agadir",      listings: 0,  gradient: "linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)", emoji: "🏖️" },
-  { name: "Meknes",      listings: 0,  gradient: "linear-gradient(135deg, #fccb90 0%, #d57eeb 100%)", emoji: "🏰" },
-  { name: "Oujda",       listings: 0,  gradient: "linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)", emoji: "🌿" }
+  { name: "Casablanca",  listings: 0, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Casa_finance_city_6_%28cropped%29.jpg/960px-Casa_finance_city_6_%28cropped%29.jpg", emoji: "🏙️" },
+  { name: "Rabat",       listings: 0, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Morocco_-_Rabat_%2831387775324%29.jpg/960px-Morocco_-_Rabat_%2831387775324%29.jpg", emoji: "🏛️" },
+  { name: "Marrakech",   listings: 0, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Pavillon_Menarag%C3%A4rten.jpg/960px-Pavillon_Menarag%C3%A4rten.jpg", emoji: "🕌" },
+  { name: "Fes",         listings: 0, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Bab_Bou_Jeloud_Frame_Minaret_Fes_Nov25_A7CR_09127-8_HDR3.jpg/960px-Bab_Bou_Jeloud_Frame_Minaret_Fes_Nov25_A7CR_09127-8_HDR3.jpg", emoji: "📖" },
+  { name: "Tangier",     listings: 0, image: "https://upload.wikimedia.org/wikipedia/commons/a/a4/Tanger_cor.jpg", emoji: "🌊" },
+  { name: "Agadir",      listings: 0, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/South_view_sea_side_from_Kasbah_of_Agadir_Oufella.jpg/960px-South_view_sea_side_from_Kasbah_of_Agadir_Oufella.jpg", emoji: "🏖️" },
+  { name: "Meknes",      listings: 0, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Entrada_a_Meknes%2C_Marruecos._-_panoramio.jpg/960px-Entrada_a_Meknes%2C_Marruecos._-_panoramio.jpg", emoji: "🏰" },
+  { name: "Oujda",       listings: 0, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Oujda.mosque_et_mairie.jpg/960px-Oujda.mosque_et_mairie.jpg", emoji: "🌿" }
 ];
 
 const testimonials = [
@@ -69,14 +69,14 @@ function renderCities() {
   const grid = document.getElementById('cities-grid');
   if (!grid) return;
 
-  grid.innerHTML = cities.map(city => `
-    <article class="city-card animate-on-scroll" onclick="searchByCity('${city.name}')" role="button" tabindex="0" aria-label="Browse listings in ${city.name}">
-      <div class="city-image" style="background: ${city.gradient}">
-        <span class="city-emoji">${city.emoji}</span>
+  grid.innerHTML = cities.map(c => `
+    <article class="city-card animate-on-scroll" onclick="filterByCity('${c.name}')" role="button" tabindex="0" aria-label="Browse listings in ${c.name}">
+      <div class="city-image" style="background: linear-gradient(to top, rgba(0,22,63,0.8), rgba(0,0,0,0.1)), url('${c.image}') center/cover no-repeat;">
+        <span class="city-emoji">${c.emoji}</span>
       </div>
       <div class="city-info">
-        <h3 class="city-name">${city.name}</h3>
-        <p class="city-count">${city.listings.toLocaleString()} ${t('listings.count')}</p>
+        <h3 class="city-name">${c.name}</h3>
+        <p class="city-listings">${c.listings} ${t('cities.properties')}</p>
       </div>
     </article>
   `).join('');

@@ -87,8 +87,8 @@ function renderListings(list) {
 
   if (list.length === 0) {
     grid.innerHTML = `
-      <div class="no-results">
-        <div class="no-results-icon">🔍</div>
+      <div class="empty-state">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
         <h3>${t('noResults.title')}</h3>
         <p>${t('noResults.desc')}</p>
       </div>`;
@@ -548,6 +548,7 @@ async function handleSignup(e) {
   closeAuthModal('signup');
   updateAuthUI();
   document.getElementById('signup-form').reset();
+  showToast('Welcome, ' + result.user.name + '!');
 }
 
 async function handleLogin(e) {
@@ -564,11 +565,13 @@ async function handleLogin(e) {
   closeAuthModal('login');
   updateAuthUI();
   document.getElementById('login-form').reset();
+  showToast('Welcome back, ' + result.user.name + '!');
 }
 
 function handleLogout() {
   logoutUser();
   updateAuthUI();
+  showToast('You have been logged out.');
 }
 
 function updateAuthUI() {
@@ -902,6 +905,7 @@ async function init() {
   setupAuthButtons();
   updateAuthUI();
   setupCustomSelects();
+  setupScrollToTop();
 
   // Apply saved language preference
   applyTranslations();
@@ -919,4 +923,17 @@ if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', init);
 } else {
   init();
+}
+
+// ─── Scroll to Top ───────────────────────────────────────────
+function setupScrollToTop() {
+  var scrollBtn = document.getElementById('scroll-to-top');
+  if (!scrollBtn) return;
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 500) {
+      scrollBtn.classList.add('show');
+    } else {
+      scrollBtn.classList.remove('show');
+    }
+  });
 }

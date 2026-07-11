@@ -2034,3 +2034,67 @@ input, select { font-family: inherit; }
 [dir="rtl"] .form-success {
   text-align: center;
 }
+
+/* ---------- Toast Notifications ---------- */
+.toast {
+  visibility: hidden;
+  min-width: 250px;
+  background-color: var(--primary);
+  color: #fff;
+  text-align: center;
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  position: fixed;
+  z-index: 9999;
+  left: 50%;
+  bottom: 30px;
+  transform: translateX(-50%);
+  box-shadow: var(--shadow-lg);
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity 0.5s, bottom 0.5s;
+}
+.toast.toast-error { background-color: #ef4444; }
+.toast.show {
+  visibility: visible;
+  opacity: 1;
+  bottom: 50px;
+}
+
+/* ---------- Empty State ---------- */
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 4rem 1rem;
+  background: var(--bg);
+  border-radius: var(--radius-md);
+  border: 1px dashed var(--border);
+}
+.empty-state svg { width: 64px; height: 64px; color: var(--text-muted); margin-bottom: 1rem; }
+.empty-state h3 { font-size: 1.25rem; color: var(--secondary); margin-bottom: 0.5rem; }
+.empty-state p { color: var(--text-secondary); margin-bottom: 1.5rem; }
+
+/* ---------- Scroll to Top Button ---------- */
+.scroll-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 45px;
+  height: 45px;
+  background: var(--accent);
+  color: var(--secondary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  z-index: 9000;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all var(--transition);
+  border: none;
+}
+.scroll-to-top.show { opacity: 1; visibility: visible; transform: translateY(0); }
+.scroll-to-top:hover { background: var(--primary); color: var(--white); transform: translateY(-5px); }

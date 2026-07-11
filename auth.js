@@ -259,3 +259,15 @@ async function deleteCustomListing(id) {
   localStorage.setItem(CUSTOM_LISTINGS_KEY, JSON.stringify(localListings));
   cachedCustomListings = localListings;
 }
+
+
+// ─── Toast Notifications ──────────────────────────────────────
+function showToast(message, isError = false) {
+  var toast = document.getElementById('toast');
+  if (!toast) return;
+  toast.textContent = message;
+  toast.className = 'toast show' + (isError ? ' toast-error' : '');
+  setTimeout(function() {
+    toast.className = toast.className.replace('show', '').trim();
+  }, 3000);
+}

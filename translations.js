@@ -103,7 +103,7 @@ const translations = {
   }
 };
 
-let currentLang = localStorage.getItem('studynest-lang') || 'en';
+let currentLang = localStorage.getItem('studynest-lang') || 'fr';
 
 function t(key) {
   return (translations[currentLang] && translations[currentLang][key]) || translations['en'][key] || key;

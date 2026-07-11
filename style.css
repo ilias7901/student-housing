@@ -171,15 +171,13 @@ input, select { font-family: inherit; }
   top: 0; left: 0; right: 0;
   z-index: 1000;
   height: var(--header-height);
-  background: rgba(255,255,255,0.8);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  background: #ffffff;
   border-bottom: 1px solid rgba(0,22,63,0.06);
   transition: all var(--transition);
 }
 
 .header.scrolled {
-  background: rgba(255,255,255,0.95);
+  background: #ffffff;
   box-shadow: 0 1px 12px rgba(0,22,63,0.08);
 }
 

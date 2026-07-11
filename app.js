@@ -577,6 +577,7 @@ function updateAuthUI() {
   var actions = document.querySelector('.header-actions');
   var loginBtn = document.getElementById('login-btn');
   var signupBtn = document.getElementById('signup-btn');
+  var mobileAuth = document.getElementById('mobile-auth-actions');
 
   // Remove existing user menu if any
   var existingMenu = document.getElementById('user-menu');
@@ -586,6 +587,7 @@ function updateAuthUI() {
     // Hide login/signup, show user menu
     if (loginBtn) loginBtn.style.display = 'none';
     if (signupBtn) signupBtn.style.display = 'none';
+    if (mobileAuth) mobileAuth.style.display = 'none';
 
     var userMenu = document.createElement('div');
     userMenu.className = 'user-menu';
@@ -600,20 +602,26 @@ function updateAuthUI() {
     if (langSwitcher) {
       actions.insertBefore(userMenu, langSwitcher);
     } else {
-      actions.prepend(userMenu);
+      actions.appendChild(userMenu);
     }
   } else {
     // Show login/signup
     if (loginBtn) loginBtn.style.display = '';
     if (signupBtn) signupBtn.style.display = '';
+    if (mobileAuth) mobileAuth.style.display = '';
   }
 }
 
 function setupAuthButtons() {
   var loginBtn = document.getElementById('login-btn');
   var signupBtn = document.getElementById('signup-btn');
+  var mLoginBtn = document.getElementById('mobile-login-btn');
+  var mSignupBtn = document.getElementById('mobile-signup-btn');
+  
   if (loginBtn) loginBtn.addEventListener('click', function() { openAuthModal('login'); });
   if (signupBtn) signupBtn.addEventListener('click', function() { openAuthModal('signup'); });
+  if (mLoginBtn) mLoginBtn.addEventListener('click', function() { openAuthModal('login'); });
+  if (mSignupBtn) mSignupBtn.addEventListener('click', function() { openAuthModal('signup'); });
 
   // Close modals on overlay click
   ['signup-modal', 'login-modal', 'listing-modal'].forEach(function(id) {

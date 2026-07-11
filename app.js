@@ -70,7 +70,7 @@ function renderCities() {
   if (!grid) return;
 
   grid.innerHTML = cities.map(c => `
-    <article class="city-card animate-on-scroll" onclick="filterByCity('${c.name}')" role="button" tabindex="0" aria-label="Browse listings in ${c.name}">
+    <article class="city-card animate-on-scroll" onclick="searchByCity('${c.name}')" role="button" tabindex="0" aria-label="Browse listings in ${c.name}">
       <div class="city-image" style="background: linear-gradient(to top, rgba(0,22,63,0.8), rgba(0,0,0,0.1)), url('${c.image}') center/cover no-repeat;">
       </div>
       <div class="city-info">

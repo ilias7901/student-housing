@@ -1077,3 +1077,17 @@ async function handleDeleteAccount() {
     document.getElementById('profile-error').textContent = result.error || 'Failed to delete account.';
   }
 }
+
+async function handleResendVerification() {
+  var email = document.getElementById('verify-email').value;
+  if (!email) return;
+  var btn = document.getElementById('resend-code-btn');
+  if (btn) btn.disabled = true;
+  var result = await resendVerification(email);
+  if (result.success) {
+    showToast('A new verification code has been sent to your email.');
+  } else {
+    document.getElementById('verify-error').textContent = result.error || 'Failed to resend code.';
+  }
+  setTimeout(function() { if (btn) btn.disabled = false; }, 5000);
+}

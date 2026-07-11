@@ -315,6 +315,25 @@ def verify_email(data: UserVerify, db: Session = Depends(get_db)):
     token = create_access_token({"sub": user.id})
     return {"success": True, "token": token, "user": {"id": user.id, "name": user.name, "email": user.email, "profile_pic": user.profile_pic, "info": user.info}}
 
+class ResendVerify(BaseModel):
+    email: str
+
+@app.post("/api/user/resend-verification")
+def resend_verification(data: ResendVerify, db: Session = Depends(get_db)):
+    import random
+    user = db.query(UserModel).filter(UserModel.email == data.email.lower()).first()
+    if not user:
+        raise HTTPException(status_code=400, detail="User not found.")
+    if user.is_verified:
+        raise HTTPException(status_code=400, detail="User already verified.")
+        
+    code = str(random.randint(100000, 999999))
+    user.verification_code = code
+    db.commit()
+    
+    send_verification_email(user.email, code)
+    return {"success": True, "message": "Verification code resent."}
+
 @app.post("/api/login")
 def login(user_data: UserLogin, db: Session = Depends(get_db)):
     user = db.query(UserModel).filter(UserModel.email == user_data.email.lower()).first()

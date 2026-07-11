@@ -333,3 +333,7 @@ async function uploadAvatar(file) {
 async function deleteAccount() {
   return await apiRequest('/user', 'DELETE');
 }
+
+async function resendVerification(email) {
+  return await apiPost('/user/resend-verification', { email: email });
+}

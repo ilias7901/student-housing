@@ -1,0 +1,110 @@
+/* ============================================================
+   StudyNest — Translations (EN / FR / AR)
+   ============================================================ */
+
+const translations = {
+  en: {
+    'nav.browse': 'Browse Rooms', 'nav.cities': 'Cities', 'nav.how': 'How It Works', 'nav.landlords': 'For Landlords',
+    'btn.login': 'Log In', 'btn.signup': 'Sign Up',
+    'hero.title1': 'Find Your Perfect', 'hero.title2': 'Student Home',
+    'hero.subtitle': 'Browse thousands of verified rooms, studios & apartments near your university',
+    'search.city': 'Enter a city...', 'search.allTypes': 'All Types', 'search.room': 'Room', 'search.studio': 'Studio',
+    'search.apartment': 'Apartment', 'search.shared': 'Shared Room', 'search.maxPrice': 'Max Price', 'search.btn': 'Search',
+    'stats.listings': 'Active Listings', 'stats.cities': 'Cities', 'stats.students': 'Happy Students', 'stats.rating': 'Average Rating',
+    'cities.title': 'Popular Student Cities', 'cities.subtitle': 'Explore top destinations for student housing',
+    'listings.title': 'Featured Listings', 'listings.subtitle': 'Hand-picked rooms and apartments for students',
+    'how.title': 'How It Works', 'how.subtitle': 'Finding your student home is easy',
+    'testimonials.title': 'What Students Say', 'testimonials.subtitle': 'Join thousands of happy students who found their home',
+    'filter.all': 'All', 'filter.rooms': 'Rooms', 'filter.studios': 'Studios', 'filter.apartments': 'Apartments', 'filter.shared': 'Shared',
+    'sort.featured': 'Featured', 'sort.priceLow': 'Price: Low to High', 'sort.priceHigh': 'Price: High to Low', 'sort.size': 'Size: Largest', 'sort.newest': 'Newest',
+    'step1.title': 'Search', 'step1.desc': 'Browse thousands of verified rooms and apartments in your preferred city',
+    'step2.title': 'Compare', 'step2.desc': 'Filter by price, location, and amenities to find your perfect match',
+    'step3.title': 'Contact', 'step3.desc': 'Reach out directly to landlords and schedule viewings',
+    'step4.title': 'Move In', 'step4.desc': 'Sign your lease and start your new student life!',
+    'cta.title': 'Are You a Landlord?', 'cta.desc': "List your property and reach thousands of students looking for housing. It's quick, easy, and effective.",
+    'cta.btn': "List Your Property — It's Free",
+    'footer.desc': 'Helping Moroccan students find their perfect home since 2024. The #1 student housing platform in Morocco.',
+    'footer.students': 'For Students', 'footer.landlords': 'For Landlords', 'footer.company': 'Company',
+    'footer.browseRooms': 'Browse Rooms', 'footer.howItWorks': 'How It Works', 'footer.studentTips': 'Student Tips', 'footer.faq': 'FAQ',
+    'footer.listProperty': 'List Property', 'footer.pricing': 'Pricing', 'footer.landlordGuide': 'Landlord Guide', 'footer.support': 'Support',
+    'footer.about': 'About Us', 'footer.contact': 'Contact', 'footer.privacy': 'Privacy Policy', 'footer.terms': 'Terms of Service',
+    'footer.copyright': '© 2026 StudyNest. All rights reserved.',
+    'property.month': '/month', 'property.furnished': 'Furnished', 'property.viewAll': 'View All Listings',
+    'modal.about': 'About this property', 'modal.details': 'Details', 'modal.amenities': 'Amenities',
+    'modal.contact': 'Contact Landlord', 'modal.save': '♡ Save', 'modal.saved': '♥ Saved',
+    'listings.count': 'listings',
+    'noResults.title': 'No listings found', 'noResults.desc': 'Try adjusting your filters or search criteria'
+  },
+
+  fr: {
+    'nav.browse': 'Parcourir', 'nav.cities': 'Villes', 'nav.how': 'Comment ça marche', 'nav.landlords': 'Propriétaires',
+    'btn.login': 'Connexion', 'btn.signup': "S'inscrire",
+    'hero.title1': 'Trouvez Votre', 'hero.title2': 'Logement Étudiant',
+    'hero.subtitle': 'Parcourez des milliers de chambres, studios et appartements vérifiés près de votre université',
+    'search.city': 'Entrez une ville...', 'search.allTypes': 'Tous les types', 'search.room': 'Chambre', 'search.studio': 'Studio',
+    'search.apartment': 'Appartement', 'search.shared': 'Chambre partagée', 'search.maxPrice': 'Prix max', 'search.btn': 'Rechercher',
+    'stats.listings': 'Annonces actives', 'stats.cities': 'Villes', 'stats.students': 'Étudiants satisfaits', 'stats.rating': 'Note moyenne',
+    'cities.title': 'Villes Étudiantes Populaires', 'cities.subtitle': 'Découvrez les meilleures destinations pour le logement étudiant',
+    'listings.title': 'Annonces en Vedette', 'listings.subtitle': 'Chambres et appartements sélectionnés pour les étudiants',
+    'how.title': 'Comment Ça Marche', 'how.subtitle': 'Trouver votre logement étudiant est simple',
+    'testimonials.title': 'Ce Que Disent les Étudiants', 'testimonials.subtitle': "Rejoignez des milliers d'étudiants qui ont trouvé leur logement",
+    'filter.all': 'Tout', 'filter.rooms': 'Chambres', 'filter.studios': 'Studios', 'filter.apartments': 'Appartements', 'filter.shared': 'Partagé',
+    'sort.featured': 'En vedette', 'sort.priceLow': 'Prix croissant', 'sort.priceHigh': 'Prix décroissant', 'sort.size': 'Surface', 'sort.newest': 'Plus récent',
+    'step1.title': 'Rechercher', 'step1.desc': 'Parcourez des milliers de chambres et appartements vérifiés dans la ville de votre choix',
+    'step2.title': 'Comparer', 'step2.desc': 'Filtrez par prix, localisation et équipements pour trouver votre logement idéal',
+    'step3.title': 'Contacter', 'step3.desc': 'Contactez directement les propriétaires et planifiez des visites',
+    'step4.title': 'Emménager', 'step4.desc': 'Signez votre bail et commencez votre vie étudiante !',
+    'cta.title': 'Vous Êtes Propriétaire ?', 'cta.desc': "Publiez votre bien et touchez des milliers d'étudiants à la recherche d'un logement. Rapide et efficace.",
+    'cta.btn': 'Publier Votre Bien — Gratuit',
+    'footer.desc': 'Nous aidons les étudiants marocains à trouver leur logement idéal depuis 2024. La plateforme #1 au Maroc.',
+    'footer.students': 'Pour les Étudiants', 'footer.landlords': 'Pour les Propriétaires', 'footer.company': 'Entreprise',
+    'footer.browseRooms': 'Parcourir les chambres', 'footer.howItWorks': 'Comment ça marche', 'footer.studentTips': 'Conseils étudiants', 'footer.faq': 'FAQ',
+    'footer.listProperty': 'Publier un bien', 'footer.pricing': 'Tarifs', 'footer.landlordGuide': 'Guide propriétaire', 'footer.support': 'Support',
+    'footer.about': 'À propos', 'footer.contact': 'Contact', 'footer.privacy': 'Politique de confidentialité', 'footer.terms': "Conditions d'utilisation",
+    'footer.copyright': '© 2026 StudyNest. Tous droits réservés.',
+    'property.month': '/mois', 'property.furnished': 'Meublé', 'property.viewAll': 'Voir Toutes les Annonces',
+    'modal.about': 'À propos de ce logement', 'modal.details': 'Détails', 'modal.amenities': 'Équipements',
+    'modal.contact': 'Contacter le Propriétaire', 'modal.save': '♡ Sauvegarder', 'modal.saved': '♥ Sauvegardé',
+    'listings.count': 'annonces',
+    'noResults.title': 'Aucune annonce trouvée', 'noResults.desc': "Essayez d'ajuster vos filtres ou critères de recherche"
+  },
+
+  ar: {
+    'nav.browse': 'تصفح الغرف', 'nav.cities': 'المدن', 'nav.how': 'كيف يعمل', 'nav.landlords': 'للمُلّاك',
+    'btn.login': 'تسجيل الدخول', 'btn.signup': 'إنشاء حساب',
+    'hero.title1': 'اعثر على', 'hero.title2': 'سكنك الطلابي المثالي',
+    'hero.subtitle': 'تصفح آلاف الغرف والاستوديوهات والشقق الموثوقة بالقرب من جامعتك',
+    'search.city': 'أدخل مدينة...', 'search.allTypes': 'جميع الأنواع', 'search.room': 'غرفة', 'search.studio': 'استوديو',
+    'search.apartment': 'شقة', 'search.shared': 'غرفة مشتركة', 'search.maxPrice': 'السعر الأقصى', 'search.btn': 'بحث',
+    'stats.listings': 'إعلان نشط', 'stats.cities': 'مدينة', 'stats.students': 'طالب سعيد', 'stats.rating': 'متوسط التقييم',
+    'cities.title': 'المدن الطلابية الشائعة', 'cities.subtitle': 'اكتشف أفضل الوجهات للسكن الطلابي',
+    'listings.title': 'الإعلانات المميزة', 'listings.subtitle': 'غرف وشقق مختارة بعناية للطلاب',
+    'how.title': 'كيف يعمل', 'how.subtitle': 'إيجاد سكنك الطلابي أمر سهل',
+    'testimonials.title': 'ماذا يقول الطلاب', 'testimonials.subtitle': 'انضم لآلاف الطلاب الذين وجدوا سكنهم',
+    'filter.all': 'الكل', 'filter.rooms': 'غرف', 'filter.studios': 'استوديوهات', 'filter.apartments': 'شقق', 'filter.shared': 'مشترك',
+    'sort.featured': 'مميز', 'sort.priceLow': 'السعر: من الأقل', 'sort.priceHigh': 'السعر: من الأعلى', 'sort.size': 'المساحة', 'sort.newest': 'الأحدث',
+    'step1.title': 'ابحث', 'step1.desc': 'تصفح آلاف الغرف والشقق الموثوقة في المدينة التي تفضلها',
+    'step2.title': 'قارن', 'step2.desc': 'فلتر حسب السعر والموقع والمرافق لإيجاد ما يناسبك',
+    'step3.title': 'تواصل', 'step3.desc': 'تواصل مباشرة مع المُلّاك وحدد مواعيد للمعاينة',
+    'step4.title': 'انتقل', 'step4.desc': 'وقّع عقدك وابدأ حياتك الطلابية الجديدة!',
+    'cta.title': 'هل أنت مالك عقار؟', 'cta.desc': 'أضف عقارك وتواصل مع آلاف الطلاب الباحثين عن سكن. سريع وسهل.',
+    'cta.btn': 'أضف عقارك — مجاناً',
+    'footer.desc': 'نساعد الطلاب المغاربة في إيجاد سكنهم المثالي منذ 2024. المنصة رقم 1 للسكن الطلابي بالمغرب.',
+    'footer.students': 'للطلاب', 'footer.landlords': 'للمُلّاك', 'footer.company': 'الشركة',
+    'footer.browseRooms': 'تصفح الغرف', 'footer.howItWorks': 'كيف يعمل', 'footer.studentTips': 'نصائح للطلاب', 'footer.faq': 'الأسئلة الشائعة',
+    'footer.listProperty': 'أضف عقار', 'footer.pricing': 'الأسعار', 'footer.landlordGuide': 'دليل المالك', 'footer.support': 'الدعم',
+    'footer.about': 'من نحن', 'footer.contact': 'اتصل بنا', 'footer.privacy': 'سياسة الخصوصية', 'footer.terms': 'شروط الخدمة',
+    'footer.copyright': '© 2026 StudyNest. جميع الحقوق محفوظة.',
+    'property.month': '/شهر', 'property.furnished': 'مفروش', 'property.viewAll': 'عرض جميع الإعلانات',
+    'modal.about': 'عن هذا العقار', 'modal.details': 'التفاصيل', 'modal.amenities': 'المرافق',
+    'modal.contact': 'تواصل مع المالك', 'modal.save': '♡ حفظ', 'modal.saved': '♥ محفوظ',
+    'listings.count': 'إعلان',
+    'noResults.title': 'لم يتم العثور على إعلانات', 'noResults.desc': 'حاول تعديل الفلاتر أو معايير البحث'
+  }
+};
+
+let currentLang = localStorage.getItem('studynest-lang') || 'en';
+
+function t(key) {
+  return (translations[currentLang] && translations[currentLang][key]) || translations['en'][key] || key;
+}

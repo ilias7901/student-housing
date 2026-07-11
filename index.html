@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en" data-scroll-behavior="smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO: Primary Meta Tags -->
+  <title>StudyNest — Find Your Perfect Student Home in Morocco | Rooms, Studios & Apartments</title>
+  <meta name="description" content="StudyNest helps Moroccan students find affordable rooms, studios, and apartments near their university. Browse thousands of verified listings across Morocco — Casablanca, Rabat, Marrakech, Fes, Tangier & more.">
+  <meta name="keywords" content="student housing Morocco, student rooms, logement étudiant Maroc, chambre étudiant, appartement étudiant, university housing, Casablanca, Rabat, Marrakech, Fes, Tangier">
+  <meta name="author" content="StudyNest">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://studynest.com">
+
+  <!-- SEO: Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://studynest.com">
+  <meta property="og:title" content="StudyNest — Find Your Perfect Student Home in Morocco">
+  <meta property="og:description" content="Browse thousands of verified student rooms, studios, and apartments near universities across Morocco.">
+  <meta property="og:site_name" content="StudyNest">
+  <meta property="og:locale" content="en_US">
+
+  <!-- SEO: Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://studynest.com">
+  <meta name="twitter:title" content="StudyNest — Find Your Perfect Student Home in Morocco">
+  <meta name="twitter:description" content="Browse thousands of verified student rooms, studios, and apartments near universities across Morocco.">
+
+  <!-- Theme & App -->
+  <meta name="theme-color" content="#00A56A">
+  <meta name="apple-mobile-web-app-title" content="StudyNest">
+  <meta name="application-name" content="StudyNest">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;600;700&family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Structured Data: WebSite -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "StudyNest",
+    "url": "https://studynest.com",
+    "description": "Find your perfect student home in Morocco — rooms, studios, and apartments near universities.",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://studynest.com/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
+  <!-- Structured Data: Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "StudyNest",
+    "url": "https://studynest.com",
+    "description": "Student housing platform connecting Moroccan students with verified rooms and apartments.",
+    "sameAs": [
+      "https://twitter.com/studynest",
+      "https://instagram.com/studynest",
+      "https://facebook.com/studynest"
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- ═══════════════ HEADER ═══════════════ -->
+  <header class="header" id="header">
+    <div class="container">
+      <a href="#" class="logo" aria-label="StudyNest Home">
+        <span class="logo-icon">🏠</span>
+        <span class="logo-text">Study<span class="logo-accent">Nest</span></span>
+      </a>
+
+      <nav class="nav" id="main-nav" aria-label="Main navigation">
+        <a href="#listings" class="nav-link">Browse Rooms</a>
+        <a href="#cities" class="nav-link">Cities</a>
+        <a href="#how-it-works" class="nav-link">How It Works</a>
+        <a href="landlord.html" class="nav-link">For Landlords</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="btn btn-outline" id="login-btn">Log In</button>
+        <button class="btn btn-primary" id="signup-btn">Sign Up</button>
+        <button class="btn btn-accent btn-list-property" id="list-property-btn" onclick="openListingModal()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          List Property
+        </button>
+        <div class="lang-switcher" role="group" aria-label="Language selection">
+          <button class="lang-btn active" data-lang="en" aria-label="English">EN</button>
+          <button class="lang-btn" data-lang="fr" aria-label="Français">FR</button>
+          <button class="lang-btn" data-lang="ar" aria-label="العربية">عر</button>
+        </div>
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ═══════════════ HERO ═══════════════ -->
+    <section class="hero" id="hero">
+      <div class="hero-bg" aria-hidden="true"></div>
+
+      <div class="container hero-content">
+        <h1 class="hero-title">Find Your Perfect<br><span class="text-accent">Student Home</span></h1>
+        <p class="hero-subtitle">Browse thousands of verified rooms, studios &amp; apartments near your university</p>
+
+        <div class="search-bar" id="search-bar" role="search" aria-label="Search for student housing">
+          <div class="search-input-group">
+            <label for="search-city" class="sr-only">City or neighborhood</label>
+            <div class="search-field">
+              <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              <input type="text" id="search-city" placeholder="Enter a city..." autocomplete="off">
+            </div>
+          </div>
+
+          <div class="search-input-group">
+            <label for="search-type" class="sr-only">Property type</label>
+            <div class="search-field">
+              <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+              <select id="search-type">
+                <option value="">All Types</option>
+                <option value="room">Room</option>
+                <option value="studio">Studio</option>
+                <option value="apartment">Apartment</option>
+                <option value="shared">Shared Room</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="search-input-group">
+            <label for="search-price" class="sr-only">Maximum monthly price</label>
+            <div class="search-field">
+              <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+              <select id="search-price">
+                <option value="">Max Price</option>
+                <option value="1500">Up to 1,500 DH</option>
+                <option value="2500">Up to 2,500 DH</option>
+                <option value="3500">Up to 3,500 DH</option>
+                <option value="5000">Up to 5,000 DH</option>
+                <option value="99999">5,000+ DH</option>
+              </select>
+            </div>
+          </div>
+
+          <button class="btn btn-accent search-btn" id="search-btn" aria-label="Search listings">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="20" height="20" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            Search
+          </button>
+        </div>
+      </div>
+
+      <div class="hero-stats" aria-label="Platform statistics">
+        <div class="container">
+          <div class="stats-grid">
+            <div class="stat-item">
+              <span class="stat-number" id="stat-active-listings">0</span>
+              <span class="stat-label">Active Listings</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">8</span>
+              <span class="stat-label">Cities</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">0</span>
+              <span class="stat-label">Happy Students</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">4.8 ★</span>
+              <span class="stat-label">Average Rating</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ POPULAR CITIES ═══════════════ -->
+    <section class="section cities-section" id="cities" aria-label="Popular student cities">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Popular Student Cities</h2>
+          <p class="section-subtitle">Explore top destinations for student housing</p>
+        </div>
+        <div class="cities-grid" id="cities-grid" role="list">
+          <!-- Dynamically rendered by app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ FEATURED LISTINGS ═══════════════ -->
+    <section class="section listings-section" id="listings" aria-label="Featured property listings">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Featured Listings</h2>
+          <p class="section-subtitle">Hand-picked rooms and apartments for students</p>
+        </div>
+
+        <div class="filter-bar" id="filter-bar" role="toolbar" aria-label="Filter listings">
+          <button class="filter-chip active" data-filter="all">All</button>
+          <button class="filter-chip" data-filter="room">Rooms</button>
+          <button class="filter-chip" data-filter="studio">Studios</button>
+          <button class="filter-chip" data-filter="apartment">Apartments</button>
+          <button class="filter-chip" data-filter="shared">Shared</button>
+          <div class="filter-sort">
+            <label for="sort-select" class="sr-only">Sort listings by</label>
+            <select id="sort-select">
+              <option value="featured">Featured</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+              <option value="size">Size: Largest</option>
+              <option value="newest">Newest</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="listings-grid" id="listings-grid" role="list">
+          <!-- Dynamically rendered by app.js -->
+        </div>
+
+        <div class="listings-cta">
+          <button class="btn btn-primary btn-lg" id="load-more-btn">View All Listings</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ HOW IT WORKS ═══════════════ -->
+    <section class="section how-section" id="how-it-works" aria-label="How StudyNest works">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">How It Works</h2>
+          <p class="section-subtitle">Finding your student home is easy</p>
+        </div>
+        <div class="steps-grid">
+          <article class="step-card animate-on-scroll">
+            <div class="step-number" aria-hidden="true">1</div>
+            <div class="step-icon" aria-hidden="true">🔍</div>
+            <h3 class="step-title">Search</h3>
+            <p class="step-desc">Browse thousands of verified rooms and apartments in your preferred city</p>
+          </article>
+          <article class="step-card animate-on-scroll">
+            <div class="step-number" aria-hidden="true">2</div>
+            <div class="step-icon" aria-hidden="true">📋</div>
+            <h3 class="step-title">Compare</h3>
+            <p class="step-desc">Filter by price, location, and amenities to find your perfect match</p>
+          </article>
+          <article class="step-card animate-on-scroll">
+            <div class="step-number" aria-hidden="true">3</div>
+            <div class="step-icon" aria-hidden="true">✉️</div>
+            <h3 class="step-title">Contact</h3>
+            <p class="step-desc">Reach out directly to landlords and schedule viewings</p>
+          </article>
+          <article class="step-card animate-on-scroll">
+            <div class="step-number" aria-hidden="true">4</div>
+            <div class="step-icon" aria-hidden="true">🎉</div>
+            <h3 class="step-title">Move In</h3>
+            <p class="step-desc">Sign your lease and start your new student life!</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ TESTIMONIALS ═══════════════ -->
+    <section class="section testimonials-section" id="testimonials" aria-label="Student testimonials">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">What Students Say</h2>
+          <p class="section-subtitle">Join thousands of happy students who found their home</p>
+        </div>
+        <div class="testimonials-grid" id="testimonials-grid" role="list">
+          <!-- Dynamically rendered by app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ CTA ═══════════════ -->
+    <section class="section cta-section" id="cta" aria-label="Landlord call to action">
+      <div class="container">
+        <div class="cta-content">
+          <h2 class="cta-title">Are You a Landlord?</h2>
+          <p class="cta-desc">List your property and reach thousands of students looking for housing. It's quick, easy, and effective.</p>
+          <button class="btn btn-accent btn-lg" onclick="openListingModal()">List Your Property — It's Free</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ═══════════════ FOOTER ═══════════════ -->
+  <footer class="footer" id="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#" class="logo" aria-label="StudyNest Home">
+            <span class="logo-icon">🏠</span>
+            <span class="logo-text">Study<span class="logo-accent">Nest</span></span>
+          </a>
+          <p class="footer-desc">Helping Moroccan students find their perfect home since 2024. The #1 student housing platform in Morocco.</p>
+          <div class="social-links" aria-label="Social media links">
+            <a href="#" class="social-link" aria-label="Follow on Twitter">𝕏</a>
+            <a href="#" class="social-link" aria-label="Follow on Instagram">📷</a>
+            <a href="#" class="social-link" aria-label="Follow on Facebook">f</a>
+            <a href="#" class="social-link" aria-label="Follow on LinkedIn">in</a>
+          </div>
+        </div>
+
+        <div class="footer-links">
+          <h4>For Students</h4>
+          <ul>
+            <li><a href="#listings">Browse Rooms</a></li>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#">Student Tips</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links">
+          <h4>For Landlords</h4>
+          <ul>
+            <li><a href="javascript:void(0)" onclick="openListingModal()">List Property</a></li>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">Landlord Guide</a></li>
+            <li><a href="#">Support</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 StudyNest. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════════ PROPERTY DETAIL MODAL ═══════════════ -->
+  <div class="modal-overlay" id="property-modal" role="dialog" aria-modal="true" aria-label="Property details">
+    <div class="modal-content">
+      <button class="modal-close" id="modal-close" aria-label="Close property details">&times;</button>
+      <div class="modal-body" id="modal-body">
+        <!-- Dynamically rendered by app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Signup Modal -->
+  <div class="modal-overlay" id="signup-modal">
+    <div class="modal-content auth-modal">
+      <button class="modal-close" onclick="closeAuthModal('signup')">&times;</button>
+      <div class="auth-form-container">
+        <div class="auth-header">
+          <h2>🏠 Create Account</h2>
+          <p>Join StudyNest to find your perfect student home</p>
+        </div>
+        <form id="signup-form" onsubmit="handleSignup(event)">
+          <div class="form-group">
+            <label for="signup-name">Full Name</label>
+            <input type="text" id="signup-name" required placeholder="Enter your full name">
+          </div>
+          <div class="form-group">
+            <label for="signup-email">Email</label>
+            <input type="email" id="signup-email" required placeholder="your@email.com">
+          </div>
+          <div class="form-group">
+            <label for="signup-password">Password</label>
+            <input type="password" id="signup-password" required minlength="6" placeholder="Min. 6 characters">
+          </div>
+          <div class="form-group">
+            <label for="signup-confirm">Confirm Password</label>
+            <input type="password" id="signup-confirm" required placeholder="Repeat your password">
+          </div>
+          <div class="form-error" id="signup-error"></div>
+          <button type="submit" class="btn btn-green btn-lg form-submit">Create Account</button>
+        </form>
+        <p class="auth-switch">Already have an account? <a onclick="switchAuthModal('login')">Log In</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Login Modal -->
+  <div class="modal-overlay" id="login-modal">
+    <div class="modal-content auth-modal">
+      <button class="modal-close" onclick="closeAuthModal('login')">&times;</button>
+      <div class="auth-form-container">
+        <div class="auth-header">
+          <h2>👋 Welcome Back</h2>
+          <p>Log in to your StudyNest account</p>
+        </div>
+        <form id="login-form" onsubmit="handleLogin(event)">
+          <div class="form-group">
+            <label for="login-email">Email</label>
+            <input type="email" id="login-email" required placeholder="your@email.com">
+          </div>
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" required placeholder="Enter your password">
+          </div>
+          <div class="form-error" id="login-error"></div>
+          <button type="submit" class="btn btn-green btn-lg form-submit">Log In</button>
+        </form>
+        <p class="auth-switch">Don't have an account? <a onclick="switchAuthModal('signup')">Sign Up</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- List Property Modal -->
+  <div class="modal-overlay" id="listing-modal">
+    <div class="modal-content listing-form-modal">
+      <button class="modal-close" onclick="closeListingModal()">&times;</button>
+      <div class="listing-form-container" id="listing-form-body">
+        <div class="auth-header">
+          <h2>📋 List Your Property</h2>
+          <p>Fill in the details to publish your listing</p>
+        </div>
+        <form id="listing-form" onsubmit="handleListingSubmit(event)">
+          <div class="form-group">
+            <label for="listing-title">Property Title</label>
+            <input type="text" id="listing-title" required placeholder="e.g. Sunny Studio near Campus">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="listing-city">City</label>
+              <select id="listing-city" required>
+                <option value="">Select city</option>
+                <option>Casablanca</option>
+                <option>Rabat</option>
+                <option>Marrakech</option>
+                <option>Fes</option>
+                <option>Tangier</option>
+                <option>Agadir</option>
+                <option>Meknes</option>
+                <option>Oujda</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="listing-neighborhood">Neighborhood</label>
+              <input type="text" id="listing-neighborhood" required placeholder="e.g. Agdal, Guéliz">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="listing-type">Type</label>
+              <select id="listing-type" required>
+                <option value="">Select type</option>
+                <option value="room">Room</option>
+                <option value="studio">Studio</option>
+                <option value="apartment">Apartment</option>
+                <option value="shared">Shared Room</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="listing-price">Price (DH/month)</label>
+              <input type="number" id="listing-price" required min="100" placeholder="e.g. 2500">
+            </div>
+            <div class="form-group">
+              <label for="listing-size">Size (m²)</label>
+              <input type="number" id="listing-size" required min="5" placeholder="e.g. 25">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="listing-available">Available From</label>
+              <input type="date" id="listing-available" required>
+            </div>
+            <div class="form-group form-checkbox-group">
+              <label class="checkbox-label">
+                <input type="checkbox" id="listing-furnished"> Furnished
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Amenities</label>
+            <div class="amenity-checkboxes" id="amenity-checkboxes">
+              <label class="checkbox-label"><input type="checkbox" value="WiFi"> WiFi</label>
+              <label class="checkbox-label"><input type="checkbox" value="Parking"> Parking</label>
+              <label class="checkbox-label"><input type="checkbox" value="Laundry"> Laundry</label>
+              <label class="checkbox-label"><input type="checkbox" value="Air Conditioning"> AC</label>
+              <label class="checkbox-label"><input type="checkbox" value="Balcony"> Balcony</label>
+              <label class="checkbox-label"><input type="checkbox" value="Kitchen"> Kitchen</label>
+              <label class="checkbox-label"><input type="checkbox" value="Elevator"> Elevator</label>
+              <label class="checkbox-label"><input type="checkbox" value="Garden"> Garden</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="listing-image">Property Image</label>
+            <input type="file" id="listing-image" accept="image/jpeg, image/png, image/webp">
+          </div>
+          <div class="form-group">
+            <label for="listing-description">Description</label>
+            <textarea id="listing-description" required rows="4" placeholder="Describe your property — location, features, nearby universities..."></textarea>
+          </div>
+          <div class="form-error" id="listing-error"></div>
+          <button type="submit" class="btn btn-green btn-lg form-submit">Publish Listing</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="auth.js"></script>
+  <script src="translations.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -38,10 +38,13 @@ async function apiPost(endpoint, data) {
 
 // ─── Session Management (always localStorage) ───────────────
 
-function setSession(user) {
+function setSession(user, token) {
   localStorage.setItem(AUTH_SESSION_KEY, JSON.stringify({
     id: user.id, name: user.name, email: user.email
   }));
+  if (token) {
+    localStorage.setItem('studynest-token', token);
+  }
 }
 
 function getCurrentUser() {
@@ -53,6 +56,7 @@ function getCurrentUser() {
 
 function logoutUser() {
   localStorage.removeItem(AUTH_SESSION_KEY);
+  localStorage.removeItem('studynest-token');
 }
 
 function getUserInitials(name) {
@@ -65,7 +69,7 @@ async function signupUser(name, email, password) {
   // Try API first
   var result = await apiPost('/signup', { name: name, email: email, password: password });
   if (result.success && result.user) {
-    setSession(result.user);
+    setSession(result.user, result.token);
     return { success: true, user: result.user };
   }
   // If API returned an error (like "email already registered"), return it
@@ -93,7 +97,7 @@ async function loginUser(email, password) {
   // Try API first
   var result = await apiPost('/login', { email: email, password: password });
   if (result.success && result.user) {
-    setSession(result.user);
+    setSession(result.user, result.token);
     return { success: true, user: result.user };
   }
   // Fallback: localStorage login (e.g. user registered when offline/bugged)
@@ -160,9 +164,13 @@ async function saveCustomListing(data) {
 
   // Try API
   try {
+    var token = localStorage.getItem('studynest-token');
+    var headers = { 'Content-Type': 'application/json' };
+    if (token) headers['Authorization'] = 'Bearer ' + token;
+    
     var res = await fetch(API_URL + '/listings', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: headers,
       body: JSON.stringify(payload)
     });
     if (res.ok) {
@@ -209,9 +217,13 @@ async function saveCustomListing(data) {
 
 async function updateCustomListing(id, data) {
   try {
+    var token = localStorage.getItem('studynest-token');
+    var headers = { 'Content-Type': 'application/json' };
+    if (token) headers['Authorization'] = 'Bearer ' + token;
+
     var res = await fetch(API_URL + '/listings/' + id, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      headers: headers,
       body: JSON.stringify(data)
     });
     if (res.ok) {
@@ -227,7 +239,14 @@ async function updateCustomListing(id, data) {
 async function deleteCustomListing(id) {
   // Try API
   try {
-    var res = await fetch(API_URL + '/listings/' + id, { method: 'DELETE' });
+    var token = localStorage.getItem('studynest-token');
+    var headers = {};
+    if (token) headers['Authorization'] = 'Bearer ' + token;
+
+    var res = await fetch(API_URL + '/listings/' + id, { 
+        method: 'DELETE',
+        headers: headers 
+    });
     if (res.ok) {
       await loadCustomListingsFromAPI();
       return;

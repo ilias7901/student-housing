@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException, Depends, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from pydantic import BaseModel
 from sqlalchemy import create_engine, Column, Integer, String, Boolean, ForeignKey, Text
 from sqlalchemy.ext.declarative import declarative_base
@@ -10,6 +11,12 @@ import json
 import bcrypt
 import os
 import shutil
+import jwt
+import datetime
+
+SECRET_KEY = "super-secret-studynest-key-change-in-production"
+ALGORITHM = "HS256"
+security = HTTPBearer()
 
 # ─── Database Setup ──────────────────────────────────────────
 DATABASE_URL = "sqlite:///./studynest.db"
@@ -73,6 +80,28 @@ def get_db():
         yield db
     finally:
         db.close()
+
+def create_access_token(data: dict):
+    to_encode = data.copy()
+    expire = datetime.datetime.utcnow() + datetime.timedelta(days=7)
+    to_encode.update({"exp": expire})
+    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    return encoded_jwt
+
+def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security), db: Session = Depends(get_db)):
+    token = credentials.credentials
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        user_id: int = payload.get("sub")
+        if user_id is None:
+            raise HTTPException(status_code=401, detail="Invalid authentication credentials")
+    except jwt.PyJWTError:
+        raise HTTPException(status_code=401, detail="Invalid authentication credentials")
+    
+    user = db.query(UserModel).filter(UserModel.id == user_id).first()
+    if user is None:
+        raise HTTPException(status_code=401, detail="User not found")
+    return user
 
 # ─── Pydantic Schemas ────────────────────────────────────────
 class UserSignup(BaseModel):
@@ -179,14 +208,18 @@ def signup(user_data: UserSignup, db: Session = Depends(get_db)):
     db.add(user)
     db.commit()
     db.refresh(user)
-    return {"success": True, "user": {"id": user.id, "name": user.name, "email": user.email}}
+    
+    token = create_access_token({"sub": user.id})
+    return {"success": True, "token": token, "user": {"id": user.id, "name": user.name, "email": user.email}}
 
 @app.post("/api/login")
 def login(user_data: UserLogin, db: Session = Depends(get_db)):
     user = db.query(UserModel).filter(UserModel.email == user_data.email.lower()).first()
     if not user or not verify_password(user_data.password, user.hashed_password):
         raise HTTPException(status_code=400, detail="Invalid email or password.")
-    return {"success": True, "user": {"id": user.id, "name": user.name, "email": user.email}}
+    
+    token = create_access_token({"sub": user.id})
+    return {"success": True, "token": token, "user": {"id": user.id, "name": user.name, "email": user.email}}
 
 @app.get("/api/listings")
 def get_listings(db: Session = Depends(get_db)):
@@ -203,7 +236,7 @@ def get_listings(db: Session = Depends(get_db)):
     return result
 
 @app.post("/api/listings")
-def create_listing(listing: ListingCreate, db: Session = Depends(get_db)):
+def create_listing(listing: ListingCreate, db: Session = Depends(get_db), current_user: UserModel = Depends(get_current_user)):
     new_listing = ListingModel(
         title=listing.title,
         city=listing.city,
@@ -216,7 +249,7 @@ def create_listing(listing: ListingCreate, db: Session = Depends(get_db)):
         features_json=json.dumps(listing.features),
         description=listing.description,
         image_url=listing.imageUrl,
-        user_id=listing.userId
+        user_id=current_user.id
     )
     db.add(new_listing)
     db.commit()
@@ -224,19 +257,23 @@ def create_listing(listing: ListingCreate, db: Session = Depends(get_db)):
     return {"success": True, "id": new_listing.id}
 
 @app.delete("/api/listings/{listing_id}")
-def delete_listing(listing_id: int, db: Session = Depends(get_db)):
+def delete_listing(listing_id: int, db: Session = Depends(get_db), current_user: UserModel = Depends(get_current_user)):
     listing = db.query(ListingModel).filter(ListingModel.id == listing_id).first()
     if not listing:
         raise HTTPException(status_code=404, detail="Listing not found.")
+    if listing.user_id != current_user.id:
+        raise HTTPException(status_code=403, detail="Not authorized to delete this listing.")
     db.delete(listing)
     db.commit()
     return {"success": True}
 
 @app.put("/api/listings/{listing_id}")
-def update_listing(listing_id: int, update_data: ListingUpdate, db: Session = Depends(get_db)):
+def update_listing(listing_id: int, update_data: ListingUpdate, db: Session = Depends(get_db), current_user: UserModel = Depends(get_current_user)):
     listing = db.query(ListingModel).filter(ListingModel.id == listing_id).first()
     if not listing:
         raise HTTPException(status_code=404, detail="Listing not found.")
+    if listing.user_id != current_user.id:
+        raise HTTPException(status_code=403, detail="Not authorized to update this listing.")
     
     update_dict = update_data.dict(exclude_unset=True)
     if "features" in update_dict:

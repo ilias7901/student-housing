@@ -19,7 +19,9 @@ ALGORITHM = "HS256"
 security = HTTPBearer()
 
 # ─── Database Setup ──────────────────────────────────────────
-DATABASE_URL = "sqlite:///./studynest.db"
+DATA_DIR = os.getenv("DATA_DIR", ".")
+db_path = os.path.join(DATA_DIR, "studynest.db")
+DATABASE_URL = f"sqlite:///{os.path.abspath(db_path)}"
 engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
@@ -189,11 +191,15 @@ def format_listing(l, index=0, user_name=None):
 
 @app.post("/api/upload")
 def upload_image(file: UploadFile = File(...)):
-    os.makedirs("images/uploads", exist_ok=True)
-    file_path = f"images/uploads/{file.filename}"
+    uploads_dir = os.path.join(DATA_DIR, "images", "uploads")
+    os.makedirs(uploads_dir, exist_ok=True)
+    
+    file_path = os.path.join(uploads_dir, file.filename)
+    url_path = f"images/uploads/{file.filename}"
+    
     with open(file_path, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
-    return {"success": True, "imageUrl": file_path}
+    return {"success": True, "imageUrl": url_path}
 
 @app.post("/api/signup")
 def signup(user_data: UserSignup, db: Session = Depends(get_db)):
@@ -289,5 +295,10 @@ def update_listing(listing_id: int, update_data: ListingUpdate, db: Session = De
     return {"success": True}
 
 # ─── Serve Static Frontend ──────────────────────────────────
+if DATA_DIR != ".":
+    uploads_dir = os.path.join(DATA_DIR, "images", "uploads")
+    os.makedirs(uploads_dir, exist_ok=True)
+    app.mount("/images/uploads", StaticFiles(directory=uploads_dir), name="uploads")
+
 # This MUST be the last mount — catches all non-API routes
 app.mount("/", StaticFiles(directory=".", html=True), name="static")

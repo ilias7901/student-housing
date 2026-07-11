@@ -72,11 +72,10 @@ function renderCities() {
   grid.innerHTML = cities.map(c => `
     <article class="city-card animate-on-scroll" onclick="filterByCity('${c.name}')" role="button" tabindex="0" aria-label="Browse listings in ${c.name}">
       <div class="city-image" style="background: linear-gradient(to top, rgba(0,22,63,0.8), rgba(0,0,0,0.1)), url('${c.image}') center/cover no-repeat;">
-        <span class="city-emoji">${c.emoji}</span>
       </div>
       <div class="city-info">
         <h3 class="city-name">${c.name}</h3>
-        <p class="city-listings">${c.listings} ${t('cities.properties')}</p>
+        <p class="city-count" style="color: var(--accent); font-weight: 600;">${c.listings} ${t('cities.properties')}</p>
       </div>
     </article>
   `).join('');

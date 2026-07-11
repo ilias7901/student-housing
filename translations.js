@@ -4,7 +4,7 @@
 
 const translations = {
   en: {
-    'nav.browse': 'Browse Rooms', 'nav.cities': 'Cities', 'nav.how': 'How It Works', 'nav.landlords': 'For Landlords',
+    'nav.browse': 'Browse Rooms', 'nav.cities': 'Cities', 'nav.how': 'How It Works', 'nav.landlords': 'For Landlords', 'nav.listProperty': 'List Property',
     'btn.login': 'Log In', 'btn.signup': 'Sign Up',
     'hero.title1': 'Find Your Perfect', 'hero.title2': 'Student Home',
     'hero.subtitle': 'Browse thousands of verified rooms, studios & apartments near your university',
@@ -37,7 +37,7 @@ const translations = {
   },
 
   fr: {
-    'nav.browse': 'Parcourir', 'nav.cities': 'Villes', 'nav.how': 'Comment ça marche', 'nav.landlords': 'Propriétaires',
+    'nav.browse': 'Parcourir', 'nav.cities': 'Villes', 'nav.how': 'Comment ça marche', 'nav.landlords': 'Propriétaires', 'nav.listProperty': 'Publier une annonce',
     'btn.login': 'Connexion', 'btn.signup': "S'inscrire",
     'hero.title1': 'Trouvez Votre', 'hero.title2': 'Logement Étudiant',
     'hero.subtitle': 'Parcourez des milliers de chambres, studios et appartements vérifiés près de votre université',
@@ -70,7 +70,7 @@ const translations = {
   },
 
   ar: {
-    'nav.browse': 'تصفح الغرف', 'nav.cities': 'المدن', 'nav.how': 'كيف يعمل', 'nav.landlords': 'للمُلّاك',
+    'nav.browse': 'تصفح الغرف', 'nav.cities': 'المدن', 'nav.how': 'كيف يعمل', 'nav.landlords': 'للمُلّاك', 'nav.listProperty': 'أضف عقارك',
     'btn.login': 'تسجيل الدخول', 'btn.signup': 'إنشاء حساب',
     'hero.title1': 'اعثر على', 'hero.title2': 'سكنك الطلابي المثالي',
     'hero.subtitle': 'تصفح آلاف الغرف والاستوديوهات والشقق الموثوقة بالقرب من جامعتك',

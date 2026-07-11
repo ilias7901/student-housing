@@ -751,10 +751,13 @@ function applyTranslations() {
   var signupBtn = document.getElementById('signup-btn');
   var mLoginBtn = document.getElementById('mobile-login-btn');
   var mSignupBtn = document.getElementById('mobile-signup-btn');
+  var listPropText = document.getElementById('list-property-text');
+  
   if (loginBtn) loginBtn.textContent = t('btn.login');
   if (signupBtn) signupBtn.textContent = t('btn.signup');
   if (mLoginBtn) mLoginBtn.textContent = t('btn.login');
   if (mSignupBtn) mSignupBtn.textContent = t('btn.signup');
+  if (listPropText) listPropText.textContent = t('nav.listProperty');
 
   // Hero
   var heroTitle = document.querySelector('.hero-title');

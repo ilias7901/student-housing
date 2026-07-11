@@ -67,6 +67,16 @@ class ListingModel(Base):
 
 Base.metadata.create_all(bind=engine)
 
+# Automatic SQLite migrations for new columns
+from sqlalchemy import text
+try:
+    with engine.connect() as conn:
+        conn.execute(text("ALTER TABLE users ADD COLUMN is_verified BOOLEAN DEFAULT 0"))
+        conn.execute(text("ALTER TABLE users ADD COLUMN verification_code VARCHAR"))
+        conn.commit()
+except Exception:
+    pass # Columns already exist
+
 # ─── FastAPI App ─────────────────────────────────────────────
 app = FastAPI(title="EtuLoc API")
 

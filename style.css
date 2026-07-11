@@ -1407,23 +1407,46 @@ input, select { font-family: inherit; }
   .mobile-menu-btn { display: flex; }
 
   .hero-title {
-    font-size: 2.25rem;
+    font-size: 2rem;
+    padding: 0 1rem;
   }
   .hero-subtitle {
     font-size: 1.0625rem;
+    padding: 0 1rem;
   }
 
   .search-bar {
     flex-direction: column;
     border-radius: var(--radius-md);
+    margin: 0 1rem;
   }
   .search-input-group {
     border-right: none;
     border-bottom: 1px solid var(--border);
   }
+  
+  /* Ensure custom dropdowns don't overlap wrongly on mobile */
+  .search-input-group:focus-within,
+  .search-input-group:hover {
+    z-index: 10;
+  }
+
   .search-btn {
     border-radius: 0 0 var(--radius-md) var(--radius-md) !important;
-    height: 3.25rem;
+    height: 3.5rem;
+    width: 100%;
+  }
+
+  .filter-chips {
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    justify-content: flex-start;
+    padding: 0 1rem;
+  }
+  
+  /* Hide name to save header space */
+  .user-name {
+    display: none;
   }
 
   .stats-grid {

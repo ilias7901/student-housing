@@ -64,7 +64,7 @@ class ListingModel(Base):
 Base.metadata.create_all(bind=engine)
 
 # ─── FastAPI App ─────────────────────────────────────────────
-app = FastAPI(title="StudyNest API")
+app = FastAPI(title="EtuLoc API")
 
 app.add_middleware(
     CORSMiddleware,

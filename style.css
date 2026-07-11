@@ -1,5 +1,5 @@
 /* ============================================================
-   StudyNest — Student Housing Platform
+   EtuLoc — Student Housing Platform
    Design System & Styles
    Inspired by Kamernet.nl
    ============================================================ */
@@ -2098,3 +2098,6 @@ input, select { font-family: inherit; }
 }
 .scroll-to-top.show { opacity: 1; visibility: visible; transform: translateY(0); }
 .scroll-to-top:hover { background: var(--primary); color: var(--white); transform: translateY(-5px); }
+
+/* Logo Styles */
+.logo-img { height: 40px; width: auto; margin-right: 0.25rem; display: block; }

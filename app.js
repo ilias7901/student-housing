@@ -1,5 +1,5 @@
 /* ============================================================
-   StudyNest — Student Housing Platform
+   EtuLoc — Student Housing Platform
    Application Logic
    ============================================================ */
 
@@ -20,7 +20,7 @@ const cities = [
 
 const testimonials = [
   {
-    text: "StudyNest m'a vraiment facilité la vie ! Je venais de Khouribga pour étudier à Casa, et en deux semaines j'avais trouvé une chambre parfaite près de la fac. Les filtres sont super pratiques.",
+    text: "EtuLoc m'a vraiment facilité la vie ! Je venais de Khouribga pour étudier à Casa, et en deux semaines j'avais trouvé une chambre parfaite près de la fac. Les filtres sont super pratiques.",
     name: "Youssef El Amrani",
     university: "Hassan II University, Casablanca",
     avatar: "YA",
@@ -34,7 +34,7 @@ const testimonials = [
     color: "#00A56A"
   },
   {
-    text: "En tant que propriétaire, StudyNest m'a aidé à trouver des locataires étudiants fiables rapidement. La plateforme est professionnelle et le processus est simple. Je recommande !",
+    text: "En tant que propriétaire, EtuLoc m'a aidé à trouver des locataires étudiants fiables rapidement. La plateforme est professionnelle et le processus est simple. Je recommande !",
     name: "Karim Fassi",
     university: "Property Owner, Rabat",
     avatar: "KF",
@@ -732,7 +732,7 @@ async function handleListingSubmit(e) {
 
 function switchLanguage(lang) {
   currentLang = lang;
-  localStorage.setItem('studynest-lang', lang);
+  localStorage.setItem('etuloc-lang', lang);
   applyTranslations();
 }
 

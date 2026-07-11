@@ -1,5 +1,5 @@
 /* ============================================================
-   StudyNest — Authentication & Listing Storage
+   EtuLoc — Authentication & Listing Storage
    Now connects to FastAPI backend with localStorage fallback
    ============================================================ */
 
@@ -11,8 +11,8 @@ var API_URL = (function() {
   }
   return 'http://127.0.0.1:8000/api';
 })();
-var AUTH_SESSION_KEY = 'studynest-session';
-var CUSTOM_LISTINGS_KEY = 'studynest-custom-listings';
+var AUTH_SESSION_KEY = 'etuloc-session';
+var CUSTOM_LISTINGS_KEY = 'etuloc-custom-listings';
 
 // ─── Listings Cache (keeps getCustomListings synchronous) ────
 var cachedCustomListings = [];
@@ -43,7 +43,7 @@ function setSession(user, token) {
     id: user.id, name: user.name, email: user.email
   }));
   if (token) {
-    localStorage.setItem('studynest-token', token);
+    localStorage.setItem('etuloc-token', token);
   }
 }
 
@@ -56,7 +56,7 @@ function getCurrentUser() {
 
 function logoutUser() {
   localStorage.removeItem(AUTH_SESSION_KEY);
-  localStorage.removeItem('studynest-token');
+  localStorage.removeItem('etuloc-token');
 }
 
 function getUserInitials(name) {
@@ -86,7 +86,7 @@ async function signupUser(name, email, password) {
   }
   var user = { id: Date.now(), name: name.trim(), email: email.toLowerCase().trim(), password: password };
   users.push(user);
-  localStorage.setItem('studynest-users', JSON.stringify(users));
+  localStorage.setItem('etuloc-users', JSON.stringify(users));
   setSession(user);
   return { success: true, user: user };
 }
@@ -115,7 +115,7 @@ async function loginUser(email, password) {
 // ─── Local user storage (fallback) ──────────────────────────
 
 function getLocalUsers() {
-  try { return JSON.parse(localStorage.getItem('studynest-users') || '[]'); }
+  try { return JSON.parse(localStorage.getItem('etuloc-users') || '[]'); }
   catch (e) { return []; }
 }
 
@@ -164,7 +164,7 @@ async function saveCustomListing(data) {
 
   // Try API
   try {
-    var token = localStorage.getItem('studynest-token');
+    var token = localStorage.getItem('etuloc-token');
     var headers = { 'Content-Type': 'application/json' };
     if (token) headers['Authorization'] = 'Bearer ' + token;
     
@@ -217,7 +217,7 @@ async function saveCustomListing(data) {
 
 async function updateCustomListing(id, data) {
   try {
-    var token = localStorage.getItem('studynest-token');
+    var token = localStorage.getItem('etuloc-token');
     var headers = { 'Content-Type': 'application/json' };
     if (token) headers['Authorization'] = 'Bearer ' + token;
 
@@ -239,7 +239,7 @@ async function updateCustomListing(id, data) {
 async function deleteCustomListing(id) {
   // Try API
   try {
-    var token = localStorage.getItem('studynest-token');
+    var token = localStorage.getItem('etuloc-token');
     var headers = {};
     if (token) headers['Authorization'] = 'Bearer ' + token;
 

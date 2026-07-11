@@ -1,5 +1,5 @@
 /* ============================================================
-   StudyNest — Translations (EN / FR / AR)
+   EtuLoc — Translations (EN / FR / AR)
    ============================================================ */
 
 const translations = {
@@ -28,7 +28,7 @@ const translations = {
     'footer.browseRooms': 'Browse Rooms', 'footer.howItWorks': 'How It Works', 'footer.studentTips': 'Student Tips', 'footer.faq': 'FAQ',
     'footer.listProperty': 'List Property', 'footer.pricing': 'Pricing', 'footer.landlordGuide': 'Landlord Guide', 'footer.support': 'Support',
     'footer.about': 'About Us', 'footer.contact': 'Contact', 'footer.privacy': 'Privacy Policy', 'footer.terms': 'Terms of Service',
-    'footer.copyright': '© 2026 StudyNest. All rights reserved.',
+    'footer.copyright': '© 2026 EtuLoc. All rights reserved.',
     'property.month': '/month', 'property.furnished': 'Furnished', 'property.viewAll': 'View All Listings',
     'modal.about': 'About this property', 'modal.details': 'Details', 'modal.amenities': 'Amenities',
     'modal.contact': 'Contact Landlord', 'modal.save': '♡ Save', 'modal.saved': '♥ Saved',
@@ -61,7 +61,7 @@ const translations = {
     'footer.browseRooms': 'Parcourir les chambres', 'footer.howItWorks': 'Comment ça marche', 'footer.studentTips': 'Conseils étudiants', 'footer.faq': 'FAQ',
     'footer.listProperty': 'Publier un bien', 'footer.pricing': 'Tarifs', 'footer.landlordGuide': 'Guide propriétaire', 'footer.support': 'Support',
     'footer.about': 'À propos', 'footer.contact': 'Contact', 'footer.privacy': 'Politique de confidentialité', 'footer.terms': "Conditions d'utilisation",
-    'footer.copyright': '© 2026 StudyNest. Tous droits réservés.',
+    'footer.copyright': '© 2026 EtuLoc. Tous droits réservés.',
     'property.month': '/mois', 'property.furnished': 'Meublé', 'property.viewAll': 'Voir Toutes les Annonces',
     'modal.about': 'À propos de ce logement', 'modal.details': 'Détails', 'modal.amenities': 'Équipements',
     'modal.contact': 'Contacter le Propriétaire', 'modal.save': '♡ Sauvegarder', 'modal.saved': '♥ Sauvegardé',
@@ -94,7 +94,7 @@ const translations = {
     'footer.browseRooms': 'تصفح الغرف', 'footer.howItWorks': 'كيف يعمل', 'footer.studentTips': 'نصائح للطلاب', 'footer.faq': 'الأسئلة الشائعة',
     'footer.listProperty': 'أضف عقار', 'footer.pricing': 'الأسعار', 'footer.landlordGuide': 'دليل المالك', 'footer.support': 'الدعم',
     'footer.about': 'من نحن', 'footer.contact': 'اتصل بنا', 'footer.privacy': 'سياسة الخصوصية', 'footer.terms': 'شروط الخدمة',
-    'footer.copyright': '© 2026 StudyNest. جميع الحقوق محفوظة.',
+    'footer.copyright': '© 2026 EtuLoc. جميع الحقوق محفوظة.',
     'property.month': '/شهر', 'property.furnished': 'مفروش', 'property.viewAll': 'عرض جميع الإعلانات',
     'modal.about': 'عن هذا العقار', 'modal.details': 'التفاصيل', 'modal.amenities': 'المرافق',
     'modal.contact': 'تواصل مع المالك', 'modal.save': '♡ حفظ', 'modal.saved': '♥ محفوظ',
@@ -103,7 +103,7 @@ const translations = {
   }
 };
 
-let currentLang = localStorage.getItem('studynest-lang') || 'fr';
+let currentLang = localStorage.getItem('etuloc-lang') || 'fr';
 
 function t(key) {
   return (translations[currentLang] && translations[currentLang][key]) || translations['en'][key] || key;

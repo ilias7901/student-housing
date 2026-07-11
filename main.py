@@ -46,6 +46,8 @@ class UserModel(Base):
     name = Column(String, nullable=False)
     email = Column(String, unique=True, index=True, nullable=False)
     hashed_password = Column(String, nullable=False)
+    is_verified = Column(Boolean, default=False)
+    verification_code = Column(String, nullable=True)
 
 class ListingModel(Base):
     __tablename__ = "listings"
@@ -114,6 +116,10 @@ class UserSignup(BaseModel):
 class UserLogin(BaseModel):
     email: str
     password: str
+
+class UserVerify(BaseModel):
+    email: str
+    code: str
 
 class ListingCreate(BaseModel):
     title: str
@@ -209,11 +215,40 @@ def signup(user_data: UserSignup, db: Session = Depends(get_db)):
     if len(user_data.password) < 6:
         raise HTTPException(status_code=400, detail="Password must be at least 6 characters.")
 
+    import random
+    
     hashed = hash_password(user_data.password)
-    user = UserModel(name=user_data.name.strip(), email=user_data.email.lower().strip(), hashed_password=hashed)
+    verification_code = str(random.randint(100000, 999999))
+    user = UserModel(
+        name=user_data.name.strip(), 
+        email=user_data.email.lower().strip(), 
+        hashed_password=hashed,
+        is_verified=False,
+        verification_code=verification_code
+    )
     db.add(user)
     db.commit()
     db.refresh(user)
+    
+    # SIMULATION: Print the code to the console
+    print(f"\n======================================")
+    print(f"EMAIL VERIFICATION FOR: {user.email}")
+    print(f"YOUR VERIFICATION CODE IS: {verification_code}")
+    print(f"======================================\n")
+    
+    return {"success": True, "requiresVerification": True, "email": user.email}
+
+@app.post("/api/verify")
+def verify_email(data: UserVerify, db: Session = Depends(get_db)):
+    user = db.query(UserModel).filter(UserModel.email == data.email.lower()).first()
+    if not user:
+        raise HTTPException(status_code=400, detail="User not found.")
+    if user.verification_code != data.code:
+        raise HTTPException(status_code=400, detail="Invalid verification code.")
+        
+    user.is_verified = True
+    user.verification_code = None
+    db.commit()
     
     token = create_access_token({"sub": user.id})
     return {"success": True, "token": token, "user": {"id": user.id, "name": user.name, "email": user.email}}
@@ -223,6 +258,8 @@ def login(user_data: UserLogin, db: Session = Depends(get_db)):
     user = db.query(UserModel).filter(UserModel.email == user_data.email.lower()).first()
     if not user or not verify_password(user_data.password, user.hashed_password):
         raise HTTPException(status_code=400, detail="Invalid email or password.")
+    if not user.is_verified:
+        raise HTTPException(status_code=400, detail="Please verify your email first.")
     
     token = create_access_token({"sub": user.id})
     return {"success": True, "token": token, "user": {"id": user.id, "name": user.name, "email": user.email}}

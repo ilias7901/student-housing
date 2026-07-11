@@ -68,6 +68,9 @@ function getUserInitials(name) {
 async function signupUser(name, email, password) {
   // Try API first
   var result = await apiPost('/signup', { name: name, email: email, password: password });
+  if (result.success && result.requiresVerification) {
+    return { success: true, requiresVerification: true, email: result.email };
+  }
   if (result.success && result.user) {
     setSession(result.user, result.token);
     return { success: true, user: result.user };
@@ -96,6 +99,9 @@ async function signupUser(name, email, password) {
 async function loginUser(email, password) {
   // Try API first
   var result = await apiPost('/login', { email: email, password: password });
+  if (result.success && result.requiresVerification) {
+    return { success: true, requiresVerification: true, email: result.email };
+  }
   if (result.success && result.user) {
     setSession(result.user, result.token);
     return { success: true, user: result.user };
@@ -115,8 +121,19 @@ async function loginUser(email, password) {
 // ─── Local user storage (fallback) ──────────────────────────
 
 function getLocalUsers() {
-  try { return JSON.parse(localStorage.getItem('etuloc-users') || '[]'); }
-  catch (e) { return []; }
+  try { return JSON.parse(localStorage.getItem('etuloc-users')) || []; }
+  catch(e) { return []; }
+}
+
+// ─── Verification ───────────────────────────────────────────
+
+async function verifyEmail(email, code) {
+  var result = await apiPost('/verify', { email: email, code: code });
+  if (result.success && result.user) {
+    setSession(result.user, result.token);
+    return { success: true, user: result.user };
+  }
+  return result;
 }
 
 // ─── Load Listings from API (populates cache) ───────────────

@@ -546,6 +546,13 @@ async function handleSignup(e) {
     return;
   }
   closeAuthModal('signup');
+  if (result.requiresVerification) {
+    document.getElementById('verify-email').value = result.email;
+    openAuthModal('verify');
+    showToast('Please check your email for the verification code.');
+    return;
+  }
+  
   updateAuthUI();
   document.getElementById('signup-form').reset();
   showToast('Welcome, ' + result.user.name + '!');
@@ -560,12 +567,41 @@ async function handleLogin(e) {
   var result = await loginUser(email, password);
   if (!result.success) {
     errorEl.textContent = result.error;
+    if (result.error.toLowerCase().includes('verify')) {
+      document.getElementById('verify-email').value = email;
+      closeAuthModal('login');
+      openAuthModal('verify');
+    }
+    return;
+  }
+  if (result.requiresVerification) {
+    document.getElementById('verify-email').value = result.email;
+    closeAuthModal('login');
+    openAuthModal('verify');
     return;
   }
   closeAuthModal('login');
   updateAuthUI();
   document.getElementById('login-form').reset();
   showToast('Welcome back, ' + result.user.name + '!');
+}
+
+async function handleVerify(e) {
+  e.preventDefault();
+  var email = document.getElementById('verify-email').value;
+  var code = document.getElementById('verify-code').value.trim();
+  var errorEl = document.getElementById('verify-error');
+  
+  var result = await verifyEmail(email, code);
+  if (!result.success) {
+    errorEl.textContent = result.error || 'Verification failed.';
+    return;
+  }
+  
+  closeAuthModal('verify');
+  updateAuthUI();
+  document.getElementById('verify-form').reset();
+  showToast('Account verified successfully!');
 }
 
 function handleLogout() {
@@ -626,7 +662,7 @@ function setupAuthButtons() {
   if (mSignupBtn) mSignupBtn.addEventListener('click', function() { openAuthModal('signup'); });
 
   // Close modals on overlay click
-  ['signup-modal', 'login-modal', 'listing-modal'].forEach(function(id) {
+  ['signup-modal', 'login-modal', 'verify-modal', 'listing-modal'].forEach(function(id) {
     var overlay = document.getElementById(id);
     if (overlay) {
       overlay.addEventListener('click', function(e) {

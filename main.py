@@ -226,6 +226,40 @@ def upload_image(file: UploadFile = File(...)):
         shutil.copyfileobj(file.file, buffer)
     return {"success": True, "imageUrl": url_path}
 
+def send_verification_email(to_email, code):
+    import smtplib
+    from email.mime.text import MIMEText
+    from email.mime.multipart import MIMEMultipart
+    
+    sender_email = os.environ.get("SMTP_EMAIL")
+    sender_password = os.environ.get("SMTP_PASSWORD")
+    
+    if not sender_email or not sender_password:
+        print(f"\n======================================")
+        print(f"SMTP CREDENTIALS MISSING - SIMULATION MODE")
+        print(f"EMAIL VERIFICATION FOR: {to_email}")
+        print(f"YOUR VERIFICATION CODE IS: {code}")
+        print(f"======================================\n")
+        return
+        
+    try:
+        msg = MIMEMultipart()
+        msg['From'] = f"EtuLoc <{sender_email}>"
+        msg['To'] = to_email
+        msg['Subject'] = "Verify your EtuLoc Account"
+        
+        body = f"Hello,\n\nWelcome to EtuLoc! Your email verification code is: {code}\n\nPlease enter this code on the website to verify your account and complete your signup.\n\nBest regards,\nThe EtuLoc Team"
+        msg.attach(MIMEText(body, 'plain'))
+        
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.starttls()
+        server.login(sender_email, sender_password)
+        server.sendmail(sender_email, to_email, msg.as_string())
+        server.quit()
+        print(f"Successfully sent verification email to {to_email}")
+    except Exception as e:
+        print(f"Failed to send email to {to_email}: {e}")
+
 @app.post("/api/signup")
 def signup(user_data: UserSignup, db: Session = Depends(get_db)):
     existing = db.query(UserModel).filter(UserModel.email == user_data.email.lower()).first()
@@ -249,11 +283,8 @@ def signup(user_data: UserSignup, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(user)
     
-    # SIMULATION: Print the code to the console
-    print(f"\n======================================")
-    print(f"EMAIL VERIFICATION FOR: {user.email}")
-    print(f"YOUR VERIFICATION CODE IS: {verification_code}")
-    print(f"======================================\n")
+    # Send actual email
+    send_verification_email(user.email, verification_code)
     
     return {"success": True, "requiresVerification": True, "email": user.email}
 

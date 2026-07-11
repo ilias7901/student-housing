@@ -340,7 +340,13 @@ def login(user_data: UserLogin, db: Session = Depends(get_db)):
     if not user or not verify_password(user_data.password, user.hashed_password):
         raise HTTPException(status_code=400, detail="Invalid email or password.")
     if not user.is_verified:
-        raise HTTPException(status_code=400, detail="Please verify your email first.")
+        if not user.verification_code:
+            import random
+            code = str(random.randint(100000, 999999))
+            user.verification_code = code
+            db.commit()
+            send_verification_email(user.email, code)
+        return {"success": False, "requiresVerification": True, "email": user.email, "error": "Please verify your email first."}
     
     token = create_access_token({"sub": user.id})
     return {"success": True, "token": token, "user": {"id": user.id, "name": user.name, "email": user.email, "profile_pic": user.profile_pic, "info": user.info}}

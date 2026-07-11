@@ -260,6 +260,18 @@ def send_verification_email(to_email, code):
     except Exception as e:
         print(f"Failed to send email to {to_email}: {e}")
 
+@app.post("/api/admin/wipe")
+def wipe_users(secret: str, db: Session = Depends(get_db)):
+    if secret != "reset123":
+        raise HTTPException(status_code=403, detail="Forbidden")
+    
+    # Delete all listings first
+    db.query(ListingModel).delete()
+    # Delete all users
+    db.query(UserModel).delete()
+    db.commit()
+    return {"success": True, "message": "Database wiped successfully."}
+
 @app.post("/api/signup")
 def signup(user_data: UserSignup, db: Session = Depends(get_db)):
     existing = db.query(UserModel).filter(UserModel.email == user_data.email.lower()).first()

@@ -48,6 +48,8 @@ class UserModel(Base):
     hashed_password = Column(String, nullable=False)
     is_verified = Column(Boolean, default=False)
     verification_code = Column(String, nullable=True)
+    profile_pic = Column(String, nullable=True)
+    info = Column(Text, nullable=True)
 
 class ListingModel(Base):
     __tablename__ = "listings"
@@ -73,6 +75,9 @@ try:
     with engine.connect() as conn:
         conn.execute(text("ALTER TABLE users ADD COLUMN is_verified BOOLEAN DEFAULT 0"))
         conn.execute(text("ALTER TABLE users ADD COLUMN verification_code VARCHAR"))
+        conn.execute(text("ALTER TABLE users ADD COLUMN profile_pic VARCHAR"))
+        conn.execute(text("ALTER TABLE users ADD COLUMN info TEXT"))
+        conn.commit()
         conn.commit()
 except Exception:
     pass # Columns already exist
@@ -130,6 +135,10 @@ class UserLogin(BaseModel):
 class UserVerify(BaseModel):
     email: str
     code: str
+
+class UserProfileUpdate(BaseModel):
+    name: str
+    info: str | None = None
 
 class ListingCreate(BaseModel):
     title: str
@@ -261,7 +270,7 @@ def verify_email(data: UserVerify, db: Session = Depends(get_db)):
     db.commit()
     
     token = create_access_token({"sub": user.id})
-    return {"success": True, "token": token, "user": {"id": user.id, "name": user.name, "email": user.email}}
+    return {"success": True, "token": token, "user": {"id": user.id, "name": user.name, "email": user.email, "profile_pic": user.profile_pic, "info": user.info}}
 
 @app.post("/api/login")
 def login(user_data: UserLogin, db: Session = Depends(get_db)):
@@ -272,7 +281,52 @@ def login(user_data: UserLogin, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail="Please verify your email first.")
     
     token = create_access_token({"sub": user.id})
-    return {"success": True, "token": token, "user": {"id": user.id, "name": user.name, "email": user.email}}
+    return {"success": True, "token": token, "user": {"id": user.id, "name": user.name, "email": user.email, "profile_pic": user.profile_pic, "info": user.info}}
+
+@app.get("/api/user/me")
+def get_user_me(user: UserModel = Depends(get_current_user)):
+    return {
+        "id": user.id,
+        "name": user.name,
+        "email": user.email,
+        "profile_pic": user.profile_pic,
+        "info": user.info,
+        "is_verified": user.is_verified
+    }
+
+@app.put("/api/user/profile")
+def update_user_profile(profile_data: UserProfileUpdate, db: Session = Depends(get_db), user: UserModel = Depends(get_current_user)):
+    user.name = profile_data.name.strip()
+    user.info = profile_data.info.strip() if profile_data.info else None
+    db.commit()
+    db.refresh(user)
+    return {"success": True, "user": {"id": user.id, "name": user.name, "email": user.email, "profile_pic": user.profile_pic, "info": user.info}}
+
+@app.post("/api/user/avatar")
+def upload_avatar(file: UploadFile = File(...), db: Session = Depends(get_db), user: UserModel = Depends(get_current_user)):
+    import os, shutil
+    os.makedirs(UPLOAD_DIR, exist_ok=True)
+    file_path = os.path.join(UPLOAD_DIR, file.filename)
+    url_path = f"images/uploads/{file.filename}"
+    
+    with open(file_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+        
+    user.profile_pic = url_path
+    db.commit()
+    db.refresh(user)
+    return {"success": True, "profile_pic": url_path}
+
+@app.delete("/api/user")
+def delete_user(db: Session = Depends(get_db), user: UserModel = Depends(get_current_user)):
+    # Delete all user's listings
+    listings = db.query(ListingModel).filter(ListingModel.user_id == user.id).all()
+    for listing in listings:
+        db.delete(listing)
+    
+    db.delete(user)
+    db.commit()
+    return {"success": True, "message": "Account and associated listings deleted successfully."}
 
 @app.get("/api/listings")
 def get_listings(db: Session = Depends(get_db)):

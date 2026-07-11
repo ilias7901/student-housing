@@ -630,11 +630,28 @@ function updateAuthUI() {
     var userMenu = document.createElement('div');
     userMenu.className = 'user-menu';
     userMenu.id = 'user-menu';
+    var avatarHtml = user.profile_pic 
+      ? `<img src="${user.profile_pic}" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">`
+      : getUserInitials(user.name);
+      
     userMenu.innerHTML = `
-      <div class="user-avatar">${getUserInitials(user.name)}</div>
-      <span class="user-name">${user.name.split(' ')[0]}</span>
-      <button class="btn-logout" onclick="handleLogout()">Logout</button>
+      <div class="user-avatar dropdown-toggle" onclick="this.nextElementSibling.classList.toggle('show')">${avatarHtml}</div>
+      <div class="dropdown-menu" style="position: absolute; top: calc(100% + 10px); right: 0; background: white; box-shadow: var(--shadow-md); border-radius: var(--radius-md); padding: 0.5rem; display: none; flex-direction: column; min-width: 150px; z-index: 1000;">
+        <div style="padding: 0.5rem 1rem; border-bottom: 1px solid var(--border-light); margin-bottom: 0.5rem;">
+          <div style="font-weight: 600;">${user.name}</div>
+        </div>
+        <button class="btn" style="background:transparent; color:var(--text); text-align:left; padding: 0.5rem 1rem; margin-bottom: 0.25rem;" onclick="openProfileModal(); this.parentElement.classList.remove('show');">Profile Settings</button>
+        <button class="btn btn-logout" style="width:100%; margin:0;" onclick="handleLogout()">Logout</button>
+      </div>
     `;
+    
+    // Add global click to close dropdown
+    document.addEventListener('click', function(e) {
+      if (!userMenu.contains(e.target)) {
+        var dropdown = userMenu.querySelector('.dropdown-menu');
+        if (dropdown) dropdown.classList.remove('show');
+      }
+    });
     // Insert before lang switcher
     var langSwitcher = actions.querySelector('.lang-switcher');
     if (langSwitcher) {
@@ -662,7 +679,7 @@ function setupAuthButtons() {
   if (mSignupBtn) mSignupBtn.addEventListener('click', function() { openAuthModal('signup'); });
 
   // Close modals on overlay click
-  ['signup-modal', 'login-modal', 'verify-modal', 'listing-modal'].forEach(function(id) {
+  ['signup-modal', 'login-modal', 'verify-modal', 'listing-modal', 'profile-modal'].forEach(function(id) {
     var overlay = document.getElementById(id);
     if (overlay) {
       overlay.addEventListener('click', function(e) {
@@ -975,4 +992,88 @@ function setupScrollToTop() {
       scrollBtn.classList.remove('show');
     }
   });
+}
+
+
+// ─── Profile Settings ────────────────────────────────────────
+
+async function openProfileModal() {
+  openAuthModal('profile');
+  document.getElementById('profile-error').textContent = '';
+  
+  var res = await fetchProfile();
+  if (res.success) {
+    document.getElementById('profile-name').value = res.name || '';
+    document.getElementById('profile-info').value = res.info || '';
+    
+    var preview = document.getElementById('profile-avatar-preview');
+    var icon = document.getElementById('profile-avatar-icon');
+    if (res.profile_pic) {
+      preview.src = res.profile_pic;
+      preview.style.display = 'block';
+      icon.style.display = 'none';
+    } else {
+      preview.style.display = 'none';
+      icon.style.display = 'block';
+    }
+  }
+}
+
+async function handleProfileUpdate(e) {
+  e.preventDefault();
+  var name = document.getElementById('profile-name').value.trim();
+  var info = document.getElementById('profile-info').value.trim();
+  var errorEl = document.getElementById('profile-error');
+  
+  var result = await updateProfile(name, info);
+  if (!result.success) {
+    errorEl.textContent = result.error || 'Failed to update profile.';
+    return;
+  }
+  
+  // Update local session
+  var session = getCurrentUser() || {};
+  session.name = result.user.name;
+  session.profile_pic = result.user.profile_pic;
+  localStorage.setItem(AUTH_SESSION_KEY, JSON.stringify(session));
+  
+  closeAuthModal('profile');
+  updateAuthUI();
+  showToast('Profile updated successfully!');
+}
+
+async function handleAvatarChange(e) {
+  var file = e.target.files[0];
+  if (!file) return;
+  
+  var result = await uploadAvatar(file);
+  if (result.success && result.profile_pic) {
+    var preview = document.getElementById('profile-avatar-preview');
+    var icon = document.getElementById('profile-avatar-icon');
+    preview.src = result.profile_pic;
+    preview.style.display = 'block';
+    icon.style.display = 'none';
+    
+    var session = getCurrentUser() || {};
+    session.profile_pic = result.profile_pic;
+    localStorage.setItem(AUTH_SESSION_KEY, JSON.stringify(session));
+    updateAuthUI();
+    showToast('Profile picture uploaded!');
+  } else {
+    document.getElementById('profile-error').textContent = 'Failed to upload image.';
+  }
+}
+
+async function handleDeleteAccount() {
+  if (!confirm("Are you sure you want to permanently delete your account and all your properties? This cannot be undone.")) {
+    return;
+  }
+  var result = await deleteAccount();
+  if (result.success) {
+    closeAuthModal('profile');
+    handleLogout();
+    showToast('Your account has been deleted.');
+  } else {
+    document.getElementById('profile-error').textContent = result.error || 'Failed to delete account.';
+  }
 }

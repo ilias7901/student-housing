@@ -288,3 +288,48 @@ function showToast(message, isError = false) {
     toast.className = toast.className.replace('show', '').trim();
   }, 3000);
 }
+
+
+async function apiRequest(endpoint, method, data = null) {
+  var token = localStorage.getItem('etuloc-token');
+  var headers = {};
+  if (token) headers['Authorization'] = 'Bearer ' + token;
+  
+  var options = { method: method, headers: headers };
+  if (data) {
+    if (data instanceof FormData) {
+      options.body = data;
+    } else {
+      headers['Content-Type'] = 'application/json';
+      options.body = JSON.stringify(data);
+    }
+  }
+
+  try {
+    var res = await fetch(API_URL + endpoint, options);
+    var json = await res.json();
+    if (!res.ok) return { success: false, error: json.detail || 'Request failed.' };
+    json.success = true;
+    return json;
+  } catch (err) {
+    return { success: false, error: 'Cannot connect to server.' };
+  }
+}
+
+async function fetchProfile() {
+  return await apiRequest('/user/me', 'GET');
+}
+
+async function updateProfile(name, info) {
+  return await apiRequest('/user/profile', 'PUT', { name: name, info: info });
+}
+
+async function uploadAvatar(file) {
+  var fd = new FormData();
+  fd.append('file', file);
+  return await apiRequest('/user/avatar', 'POST', fd);
+}
+
+async function deleteAccount() {
+  return await apiRequest('/user', 'DELETE');
+}

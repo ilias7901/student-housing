@@ -2099,3 +2099,8 @@ input, select { font-family: inherit; }
 
 /* Logo Styles */
 .logo-img { height: 40px; width: auto; margin-right: 0.25rem; display: block; }
+
+
+/* ---------- Profile Dropdown ---------- */
+.dropdown-menu.show { display: flex !important; }
+.user-avatar.dropdown-toggle { cursor: pointer; }

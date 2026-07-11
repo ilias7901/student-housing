@@ -746,8 +746,12 @@ function applyTranslations() {
   // Header buttons
   var loginBtn = document.getElementById('login-btn');
   var signupBtn = document.getElementById('signup-btn');
+  var mLoginBtn = document.getElementById('mobile-login-btn');
+  var mSignupBtn = document.getElementById('mobile-signup-btn');
   if (loginBtn) loginBtn.textContent = t('btn.login');
   if (signupBtn) signupBtn.textContent = t('btn.signup');
+  if (mLoginBtn) mLoginBtn.textContent = t('btn.login');
+  if (mSignupBtn) mSignupBtn.textContent = t('btn.signup');
 
   // Hero
   var heroTitle = document.querySelector('.hero-title');
